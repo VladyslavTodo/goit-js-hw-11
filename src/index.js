@@ -1,4 +1,3 @@
-import './css/styles.css';
 import { Notify } from 'notiflix';
 import { fetchImages } from './js/fetch';
 import { marcupPictures } from './js/rander';
