@@ -1,4 +1,4 @@
-import { axios } from 'axios';
+import axios from 'axios';
 
 export async function fetchImages({ inputValue, page, limitpage }) {
   const BASE_URL = 'https://pixabay.com/api/';
@@ -15,12 +15,9 @@ export async function fetchImages({ inputValue, page, limitpage }) {
 
   const options = new URLSearchParams(params);
 
-  const url = `${BASE_URL}/?${options}`;
-  console.log(url);
+  // const url = `${BASE_URL}/?${options}`;
+  // console.log(url);
 
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(res.status);
-  }
-  return await res.json();
+  const res = await axios.get(`${BASE_URL}`, { params });
+  return res.data;
 }

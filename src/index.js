@@ -30,16 +30,21 @@ async function searchInputPictures(event) {
 
   gallery.innerHTML = '';
 
-  const data = await fetchImages(state);
-  button.classList.remove('is-hidden');
+  try {
+    const data = await fetchImages(state);
+    button.classList.remove('is-hidden');
 
-  if (data.hits.length === 0) {
+    if (data.hits.length === 0) {
+      Notify.failure('Error');
+    }
+
+    state.totalHits = data.totalHits;
+    gallery.insertAdjacentHTML('beforeend', marcupPictures(data.hits));
+  } catch (error) {
     Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
+      'Oops! Something went wrong while loading the page. Please try again later.'
     );
   }
-  state.totalHits = data.totalHits;
-  gallery.insertAdjacentHTML('beforeend', marcupPictures(data.hits));
 }
 
 async function moreImputPictures() {
