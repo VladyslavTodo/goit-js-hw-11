@@ -15,9 +15,6 @@ export async function fetchImages({ inputValue, page, limitpage }) {
 
   const options = new URLSearchParams(params);
 
-  // const url = `${BASE_URL}/?${options}`;
-  // console.log(url);
-
   const res = await axios.get(`${BASE_URL}`, { params });
   return res.data;
 }

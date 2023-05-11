@@ -1,15 +1,17 @@
 import { Notify } from 'notiflix';
 import { fetchImages } from './js/fetch';
 import { marcupPictures } from './js/rander';
-// // Описаний в документації
-// import SimpleLightbox from 'simplelightbox';
-// // Додатковий імпорт стилів
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+// Описаний в документації
+import SimpleLightbox from 'simplelightbox';
+// Додатковий імпорт стилів
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('[type="text"]');
 const gallery = document.querySelector('.gallery');
 const button = document.querySelector('.load-more');
+
+const lightbox = new SimpleLightbox('.gallery a');
 
 form.addEventListener('submit', searchInputPictures);
 button.addEventListener('click', moreImputPictures);
@@ -40,6 +42,7 @@ async function searchInputPictures(event) {
 
     state.totalHits = data.totalHits;
     gallery.insertAdjacentHTML('beforeend', marcupPictures(data.hits));
+    lightbox.refresh();
   } catch (error) {
     Notify.failure(
       'Oops! Something went wrong while loading the page. Please try again later.'
@@ -63,8 +66,5 @@ async function moreImputPictures() {
     button.classList.remove('is-hidden');
   }
   gallery.insertAdjacentHTML('beforeend', marcupPictures(data.hits));
+  lightbox.refresh();
 }
-
-// const lightbox = new SimpleLightbox('.gallery a', {
-//   captionDelay: 250,
-// });
